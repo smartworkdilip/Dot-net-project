@@ -75,6 +75,24 @@ public class ProductRepositoryTests
     }
 
     [Fact]
+    public async Task GetLowStockAsync_ReturnsOnlyProductsAtOrBelowThreshold()
+    {
+        await using var context = CreateContext();
+        context.Products.AddRange(
+            new Product { Name = "Plenty", Price = 9.99m, StockQuantity = 50 },
+            new Product { Name = "Exactly At Threshold", Price = 9.99m, StockQuantity = 5 },
+            new Product { Name = "Almost Out", Price = 9.99m, StockQuantity = 1 },
+            new Product { Name = "Out Of Stock", Price = 9.99m, StockQuantity = 0 });
+        await context.SaveChangesAsync();
+
+        var repository = new ProductRepository(context);
+        var result = (await repository.GetLowStockAsync(5)).ToList();
+
+        Assert.Equal(3, result.Count);
+        Assert.DoesNotContain(result, p => p.Name == "Plenty");
+    }
+
+    [Fact]
     public async Task UpdateAsync_ThenSaveChanges_PersistsModifications()
     {
         await using var context = CreateContext();

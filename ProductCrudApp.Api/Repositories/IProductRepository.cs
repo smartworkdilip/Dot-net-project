@@ -12,6 +12,9 @@ public interface IProductRepository
     // Reads a single row by primary key, or null if it doesn't exist.
     Task<Product?> GetByIdAsync(int id);
 
+    // Reads every row whose StockQuantity is at or below the given threshold.
+    Task<IEnumerable<Product>> GetLowStockAsync(int threshold);
+
     // Stages a new entity for insertion (not persisted until SaveChangesAsync).
     Task<Product> AddAsync(Product product);
 

@@ -11,6 +11,7 @@ namespace ProductCrudApp.Api.Controllers;
 // work is delegated to IProductService — no business or persistence logic here.
 [ApiController]
 [Route("api/[controller]")]
+
 public class ProductsController : ControllerBase
 {
     private readonly IProductService _productService;
@@ -29,6 +30,17 @@ public class ProductsController : ControllerBase
     public async Task<ActionResult<IEnumerable<ProductResponse>>> GetAll()
     {
         var products = await _productService.GetAllAsync();
+        return Ok(products.Select(ToResponse));
+    }
+
+    // GET /api/products/low-stock?threshold=5 — list products at or below the
+    // given stock threshold (defaults to 5). Route sits before {id:int} in
+    // source but doesn't need to: the :int constraint keeps "low-stock" from
+    // ever matching that route.
+    [HttpGet("low-stock")]
+    public async Task<ActionResult<IEnumerable<ProductResponse>>> GetLowStock([FromQuery] int threshold = 5)
+    {
+        var products = await _productService.GetLowStockAsync(threshold);
         return Ok(products.Select(ToResponse));
     }
 

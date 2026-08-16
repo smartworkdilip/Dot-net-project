@@ -27,6 +27,12 @@ public class ProductService : IProductService
         return await _repository.GetByIdAsync(id);
     }
 
+    // Straight pass-through: threshold interpretation is a query concern, not a business rule.
+    public async Task<IEnumerable<Product>> GetLowStockAsync(int threshold)
+    {
+        return await _repository.GetLowStockAsync(threshold);
+    }
+
     // Adds the new product and commits it in one step.
     public async Task<Product> CreateAsync(Product product)
     {

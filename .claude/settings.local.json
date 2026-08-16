@@ -13,7 +13,16 @@
       "Bash(curl -s -o /tmp/resp.txt -w \"HTTP_CODE:%{http_code}\\\\n\" http://localhost:5081/api/products --max-time 5)",
       "Read(//tmp/**)",
       "Bash(curl -sv http://localhost:5081/api/products --max-time 5)",
-      "Bash(curl -sv http://localhost:5081/api/products --max-time 35 -o /tmp/resp2.txt -w \"\\\\nHTTP_CODE:%{http_code}\\\\n\")"
+      "Bash(curl -sv http://localhost:5081/api/products --max-time 35 -o /tmp/resp2.txt -w \"\\\\nHTTP_CODE:%{http_code}\\\\n\")",
+      "Bash(dotnet build *)",
+      "Bash(dotnet test *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(gh pr *)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)"
     ]
   }
 }

@@ -8,6 +8,7 @@ public interface IProductService
 {
     Task<IEnumerable<Product>> GetAllAsync();
     Task<Product?> GetByIdAsync(int id);
+    Task<IEnumerable<Product>> GetLowStockAsync(int threshold);
     Task<Product> CreateAsync(Product product);
 
     // Returns false (→ controller returns 404) if no product with this id exists.
