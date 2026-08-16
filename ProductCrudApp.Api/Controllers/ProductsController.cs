@@ -32,6 +32,17 @@ public class ProductsController : ControllerBase
         return Ok(products.Select(ToResponse));
     }
 
+    // GET /api/products/low-stock?threshold=5 — list products at or below the
+    // given stock threshold (defaults to 5). Route sits before {id:int} in
+    // source but doesn't need to: the :int constraint keeps "low-stock" from
+    // ever matching that route.
+    [HttpGet("low-stock")]
+    public async Task<ActionResult<IEnumerable<ProductResponse>>> GetLowStock([FromQuery] int threshold = 5)
+    {
+        var products = await _productService.GetLowStockAsync(threshold);
+        return Ok(products.Select(ToResponse));
+    }
+
     // GET /api/products/{id} — fetch one product, or 404 if it doesn't exist.
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ProductResponse>> GetById(int id)

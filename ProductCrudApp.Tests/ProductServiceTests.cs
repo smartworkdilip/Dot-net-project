@@ -68,6 +68,20 @@ public class ProductServiceTests
     }
 
     [Fact]
+    public async Task GetLowStockAsync_ReturnsProductsFromRepository_ForGivenThreshold()
+    {
+        _repositoryMock.Setup(r => r.GetLowStockAsync(5)).ReturnsAsync(new List<Product>
+        {
+            new() { Id = 1, Name = "Almost Out", Price = 9.99m, StockQuantity = 1 }
+        });
+
+        var result = await _service.GetLowStockAsync(5);
+
+        Assert.Single(result);
+        _repositoryMock.Verify(r => r.GetLowStockAsync(5), Times.Once);
+    }
+
+    [Fact]
     public async Task UpdateAsync_UpdatesExistingProduct_AndReturnsTrue()
     {
         var existing = new Product { Id = 1, Name = "Old Name", Price = 10m, StockQuantity = 1 };

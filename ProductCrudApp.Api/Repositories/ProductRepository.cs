@@ -29,6 +29,15 @@ public class ProductRepository : IProductRepository
         return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
     }
 
+    // Read-only, so AsNoTracking like GetAllAsync.
+    public async Task<IEnumerable<Product>> GetLowStockAsync(int threshold)
+    {
+        return await _context.Products
+            .AsNoTracking()
+            .Where(p => p.StockQuantity <= threshold)
+            .ToListAsync();
+    }
+
     // Queues an INSERT; the row isn't written until SaveChangesAsync runs.
     public async Task<Product> AddAsync(Product product)
     {

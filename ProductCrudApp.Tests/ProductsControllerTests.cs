@@ -36,6 +36,22 @@ public class ProductsControllerTests
     }
 
     [Fact]
+    public async Task GetLowStock_ReturnsOkWithProducts_UsingGivenThreshold()
+    {
+        _serviceMock.Setup(s => s.GetLowStockAsync(5)).ReturnsAsync(new List<Product>
+        {
+            new() { Id = 1, Name = "Almost Out", Price = 1m, StockQuantity = 1 }
+        });
+
+        var result = await _controller.GetLowStock(5);
+
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        var products = Assert.IsAssignableFrom<IEnumerable<ProductResponse>>(okResult.Value);
+        Assert.Single(products);
+        _serviceMock.Verify(s => s.GetLowStockAsync(5), Times.Once);
+    }
+
+    [Fact]
     public async Task GetById_ReturnsOk_WhenProductExists()
     {
         _serviceMock.Setup(s => s.GetByIdAsync(1))
