@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker info *)",
+      "Bash(brew --version)",
+      "Bash(brew install *)",
+      "Bash(curl -sSL https://dot.net/v1/dotnet-install.sh -o /private/tmp/claude-501/-Users-dilipkumar-Downloads-Dot-Net-Project/b35197b6-e82c-4f43-ad36-658aabd21ec9/scratchpad/dotnet-install.sh)",
+      "Bash(chmod +x /private/tmp/claude-501/-Users-dilipkumar-Downloads-Dot-Net-Project/b35197b6-e82c-4f43-ad36-658aabd21ec9/scratchpad/dotnet-install.sh)",
+      "Bash(/private/tmp/claude-501/-Users-dilipkumar-Downloads-Dot-Net-Project/b35197b6-e82c-4f43-ad36-658aabd21ec9/scratchpad/dotnet-install.sh --channel LTS --install-dir /Users/dilipkumar/.dotnet)",
+      "Bash(open -a Docker)",
+      "Bash(docker exec *)",
+      "Bash(kill 86447 86451)",
+      "Bash(curl -s -o /tmp/resp.txt -w \"HTTP_CODE:%{http_code}\\\\n\" http://localhost:5081/api/products --max-time 5)",
+      "Read(//tmp/**)",
+      "Bash(curl -sv http://localhost:5081/api/products --max-time 5)",
+      "Bash(curl -sv http://localhost:5081/api/products --max-time 35 -o /tmp/resp2.txt -w \"\\\\nHTTP_CODE:%{http_code}\\\\n\")"
+    ]
+  }
+}
