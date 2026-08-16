@@ -11,6 +11,7 @@ namespace ProductCrudApp.Api.Controllers;
 // work is delegated to IProductService — no business or persistence logic here.
 [ApiController]
 [Route("api/[controller]")]
+
 public class ProductsController : ControllerBase
 {
     private readonly IProductService _productService;
